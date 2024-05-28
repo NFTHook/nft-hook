@@ -1,40 +1,80 @@
 package config
 
 import (
-	"fmt"
+	"log"
+	"os"
 
 	"github.com/spf13/viper"
 )
 
-type AppConfig struct {
-	Port         string       `mapstructure:"port"`
-	SqliteConfig SQLiteConfig `mapstructure:"sqliteConfig"`
-	Infura       InfuraConfig `mapstructure:"infura"`
+type appConfig struct {
+	Http struct {
+		Port string
+	}
+	Mysql struct {
+		Host     string
+		Port     string
+		Username string
+		Password string
+		Db       string
+	}
+	API struct {
+		Key string
+	}
+	Log struct {
+		Level string
+	}
+	AES struct {
+		KeyPath string
+	}
+	Key struct {
+		VegaKey []byte
+	}
+	Chains struct {
+		Ethereum  string
+		BSC       string
+		BscTestWs string
+	}
+	Google struct {
+		ClientId string
+	}
+	Openai struct {
+		Apikey string `yaml:"apikey"`
+	}
+	Env struct {
+		WebUrl     string
+		Log        string
+		En_i18n    string
+		Zh_cn_i18n string
+	}
+	WxPay struct {
+		CallbackUrl string
+	}
 }
 
-type SQLiteConfig struct {
-	FilePath string `mapstructure:"filePath"`
-	Mode     string `mapstructure:"mode"`
-}
-
-type InfuraConfig struct {
-	ProjectID     string `mapstructure:"projectId"`
-	ProjectSecret string `mapstructure:"projectSecret"`
-}
-
-var AppCfg *AppConfig
+var appCfg = &appConfig{}
 
 func init() {
-	// 使用Viper库读取配置文件
-	viper.SetConfigFile("./config/dev.yml")
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("error reading config file: %s", err))
+
+	env := os.Getenv("NFTHOOK_APP_ENV")
+	if env == "production" {
+		viper.SetConfigFile("./config/pro.yml")
+	} else {
+		viper.SetConfigFile("./config/dev.yml")
 	}
 
-	// 使用Viper的Unmarshal方法将配置文件内容解析到AppCfg结构体中
-	err = viper.Unmarshal(&AppCfg)
+	viper.SetConfigType("yml")
+	err := viper.ReadInConfig()
 	if err != nil {
-		panic(fmt.Errorf("error unmarshaling config: %s", err))
+		log.Fatalf("无法读取配置文件：%s", err)
 	}
+
+	err = viper.Unmarshal(appCfg)
+	if err != nil {
+		log.Fatalf("无法解析配置：%s", err)
+	}
+}
+
+func Get() *appConfig {
+	return appCfg
 }

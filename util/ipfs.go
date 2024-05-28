@@ -4,7 +4,6 @@ import (
 	"encoding/base64"
 	"net/http"
 	"os"
-	"qianji/config"
 
 	ipfs "github.com/ipfs/go-ipfs-api"
 )
@@ -42,7 +41,7 @@ func init() {
 	ipfsclient = &http.Client{
 		Transport: &headerTransport{
 			Transport: http.DefaultTransport,
-			Header:    http.Header{"Authorization": []string{"Basic " + basicAuth(config.AppCfg.Infura.ProjectID, config.AppCfg.Infura.ProjectSecret)}},
+			// Header:    http.Header{"Authorization": []string{"Basic " + basicAuth(config.AppCfg.Infura.ProjectID, config.AppCfg.Infura.ProjectSecret)}},
 		},
 	}
 }
