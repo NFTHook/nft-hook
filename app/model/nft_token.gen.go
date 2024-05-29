@@ -17,7 +17,7 @@ type NftToken struct {
 	ContractAddr string `gorm:"column:contract_addr" json:"contract_addr"`
 	HolderNum    int64  `gorm:"column:holder_num" json:"holder_num"`
 	Abi          string `gorm:"column:abi" json:"abi"`
-	Btns         string `gorm:"column:btns;comment:对应的按钮" json:"btns"` // 对应的按钮
+	Btns         string `gorm:"column:btns; json:"btns"`
 	DeployAddr   string `gorm:"column:deploy_addr" json:"deploy_addr"`
 }
 
