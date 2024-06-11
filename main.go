@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	_ "nfthook/app/job"
 	"nfthook/app/router"
 	"nfthook/config"
 
