@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"nfthook/app/router"
-
 	"nfthook/config"
 
 	"github.com/gin-gonic/gin"

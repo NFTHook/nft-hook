@@ -50,6 +50,12 @@ type appConfig struct {
 	WxPay struct {
 		CallbackUrl string
 	}
+	Okx struct {
+		ApiKey     string
+		ApiSecret  string
+		Passphrase string
+		BaseURL    string
+	}
 }
 
 var appCfg = &appConfig{}

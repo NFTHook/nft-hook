@@ -9,3 +9,5 @@ test/gorm_gen/main.go
 __debug_bin
 
 test/*
+
+.vscode/*
