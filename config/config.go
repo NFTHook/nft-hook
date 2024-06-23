@@ -47,9 +47,6 @@ type appConfig struct {
 		En_i18n    string
 		Zh_cn_i18n string
 	}
-	WxPay struct {
-		CallbackUrl string
-	}
 	Okx struct {
 		ApiKey     string
 		ApiSecret  string
